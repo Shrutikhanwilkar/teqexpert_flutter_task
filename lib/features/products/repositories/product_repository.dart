@@ -1,9 +1,22 @@
+import 'dart:async';
 import 'dart:convert';
 
 import 'package:connectivity_plus/connectivity_plus.dart';
+import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
+import 'package:internet_connection_checker_plus/internet_connection_checker_plus.dart';
 
 class ProductRepository {
+  RxBool isConnectedToInternet = false.obs;
+  late final StreamSubscription<InternetStatus> subscription;
+
+  checkInternetConnectivity() {
+    subscription =
+        InternetConnection().onStatusChange.listen((InternetStatus status) {
+      isConnectedToInternet.value = (status == InternetStatus.connected);
+    });
+  }
+
   Future<List<dynamic>> fetchProducts() async {
     var connectivityResult = await Connectivity().checkConnectivity();
     if (connectivityResult == ConnectivityResult.none) {

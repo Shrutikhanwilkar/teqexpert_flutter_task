@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 import 'features/products/screens/product_list_screen.dart';
 
@@ -11,11 +12,11 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return GetMaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Flutter Task',
       theme: ThemeData(primarySwatch: Colors.blue),
-      home: ProductListScreen(),
+      home: const ProductListScreen(),
     );
   }
 }
